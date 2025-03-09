@@ -6,7 +6,6 @@ body {
     padding: 0;
 }
 
-/* Mobile-friendly container */
 .container {
     max-width: 450px;
     margin: 50px auto;
@@ -16,13 +15,11 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Rupee Icon */
 .rupee-logo {
     width: 80px;
     margin-bottom: 10px;
 }
 
-/* Input fields styling */
 input {
     width: 95%;
     padding: 12px;
@@ -32,7 +29,6 @@ input {
     font-size: 16px;
 }
 
-/* Button Styling */
 button {
     width: 100%;
     padding: 14px;
@@ -49,12 +45,10 @@ button:hover {
     background: #0056b3;
 }
 
-/* Hide elements initially */
 .hidden {
     display: none;
 }
 
-/* Styling for the Copy Link button */
 #copyLink {
     margin-top: 10px;
     background: #28a745;
@@ -64,7 +58,6 @@ button:hover {
     background: #218838;
 }
 
-/* Payment logos */
 .logos {
     margin-top: 20px;
 }
@@ -74,7 +67,6 @@ button:hover {
     margin: 5px;
 }
 
-/* Footer */
 .footer {
     margin-top: 30px;
     font-size: 14px;
@@ -87,10 +79,9 @@ button:hover {
     align-items: center;
     margin: auto;
     width: 100%;
-    max-width: 300px; /* Ensure it doesn't stretch too much */
+    max-width: 300px;
 }
 
-/* Desktop friendly */
 @media (min-width: 768px) {
     .container {
         max-width: 600px;

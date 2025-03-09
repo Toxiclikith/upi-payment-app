@@ -1,44 +1,27 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let generateBtn = document.getElementById("generateBtn");
-    let copyBtn = document.getElementById("copyBtn");
-
-    if (generateBtn) {
-        generateBtn.addEventListener("click", function () {
-            let upi = document.getElementById("upiId").value.trim();
-            let amount = document.getElementById("amount").value.trim();
-
-            if (!upi) {
-                alert("Please enter a valid UPI ID");
-                return;
-            }
-
-            // Reset the amount value if empty
-            amount = amount ? `&amount=${amount}` : "";
-
-            let paymentLink = `https://toxiclikith.github.io/upi-payment-app/pay.html?upi=${encodeURIComponent(upi)}${amount}`;
-
-            document.getElementById("generatedLink").value = paymentLink;
-            document.getElementById("copyBtn").style.display = "inline-block";
-            document.getElementById("generatedLinkContainer").style.display = "block";
-        });
+document.getElementById("generate").addEventListener("click", function () {
+    let upi = document.getElementById("upi").value.trim();
+    let amount = document.getElementById("amount").value.trim();
+    let resultDiv = document.getElementById("result");
+    let generatedLinkElem = document.getElementById("generatedLink");
+    
+    if (!upi) {
+        alert("Please enter a valid UPI ID!");
+        return;
     }
 
-    if (copyBtn) {
-        copyBtn.addEventListener("click", function () {
-            let linkField = document.getElementById("generatedLink");
-            linkField.select();
-            document.execCommand("copy");
-            alert("Link copied to clipboard!");
-        });
-    }
+    amount = amount ? `&amount=${amount}` : '';
 
-    // Center QR Code on All Devices
-    let qrContainer = document.getElementById("qrcode");
-    if (qrContainer) {
-        qrContainer.style.display = "flex";
-        qrContainer.style.justifyContent = "center";
-        qrContainer.style.alignItems = "center";
-        qrContainer.style.margin = "auto";
-        qrContainer.style.width = "100%";
-    }
+    let paymentURL = `https://toxiclikith.github.io/upi-payment-app/pay.html?upi=${encodeURIComponent(upi)}&amount=${amount}`;
+    localStorage.setItem("lastPaymentLink", paymentURL);
+
+    generatedLinkElem.innerHTML = `<a href="${paymentURL}" target="_blank">${paymentURL}</a>`;
+
+    resultDiv.classList.remove("hidden");
+});
+
+document.getElementById("copyLink").addEventListener("click", function () {
+    let linkText = document.getElementById("generatedLink").innerText;
+    navigator.clipboard.writeText(linkText).then(() => {
+        alert("Link copied to clipboard!");
+    });
 });
