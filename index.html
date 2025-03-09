@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UPI Payment Link Generator</title>
+    <title>UPI Payment Generator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <div class="container">
     <h2>Generate UPI Payment Link</h2>
-    <i class="icon">💰</i> 
 
     <input type="text" id="upi" placeholder="Enter UPI ID (example@upi)">
     <input type="number" id="amount" placeholder="Enter Amount (Optional)">
-    
-    <button id="generate">Generate & Shorten Link</button>
 
-    <p id="generatedLink"></p>
+    <button id="generate">Generate</button>
+
+    <div id="result" class="hidden">
+        <p id="generatedLink"></p>
+        <button id="copyLink">Copy Link</button>
+    </div>
 
     <p class="footer">Made with ❤️ by <strong>toxiclikith</strong></p>
 </div>

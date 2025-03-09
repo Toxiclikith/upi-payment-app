@@ -1,34 +1,38 @@
 document.getElementById("generate").addEventListener("click", async function () {
     let upi = document.getElementById("upi").value.trim();
     let amount = document.getElementById("amount").value.trim();
-
+    let resultDiv = document.getElementById("result");
+    let generatedLinkElem = document.getElementById("generatedLink");
+    
     if (!upi) {
         alert("Please enter a valid UPI ID!");
         return;
     }
 
-    // Construct the payment page URL
-    let paymentURL = `https://toxiclikith.github.io/pay.html?upi=${encodeURIComponent(upi)}&amount=${amount}`;
-
+    let paymentURL = `https://toxiclikith.github.io/upi-payment-app/pay.html?upi=${encodeURIComponent(upi)}&amount=${amount}`;
+    
     try {
-        // Shorten URL using Bitly
         let bitlyURL = await shortenURL(paymentURL);
-        
-        // Store in localStorage for persistence
         localStorage.setItem("lastPaymentLink", bitlyURL);
-
-        // Display the shortened link
-        document.getElementById("generatedLink").innerHTML = `Your Payment Link: <a href="${bitlyURL}" target="_blank">${bitlyURL}</a>`;
-
+        generatedLinkElem.innerHTML = `<a href="${bitlyURL}" target="_blank">${bitlyURL}</a>`;
     } catch (error) {
-        alert("Failed to shorten URL, using normal link instead.");
-        document.getElementById("generatedLink").innerHTML = `Your Payment Link: <a href="${paymentURL}" target="_blank">${paymentURL}</a>`;
+        generatedLinkElem.innerHTML = `<a href="${paymentURL}" target="_blank">${paymentURL}</a>`;
     }
+
+    resultDiv.classList.remove("hidden");
+});
+
+// Copy Link to Clipboard
+document.getElementById("copyLink").addEventListener("click", function () {
+    let linkText = document.getElementById("generatedLink").innerText;
+    navigator.clipboard.writeText(linkText).then(() => {
+        alert("Link copied to clipboard!");
+    });
 });
 
 // Function to shorten URL using Bitly API
 async function shortenURL(longURL) {
-    const bitlyToken = "91e7c00d3623e3e4c1408448ed9b1f64f5d02763"; // Replace with your Bitly access token
+    const bitlyToken = "91e7c00d3623e3e4c1408448ed9b1f64f5d02763"; // Replace with Bitly Token
     const response = await fetch("https://api-ssl.bitly.com/v4/shorten", {
         method: "POST",
         headers: {
@@ -39,5 +43,5 @@ async function shortenURL(longURL) {
     });
 
     const data = await response.json();
-    return data.link; // Return shortened URL
+    return data.link;
 }

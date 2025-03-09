@@ -1,10 +1,9 @@
-// Function to get URL parameters
 function getQueryParam(param) {
     let urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 }
 
-// Get UPI ID and amount from URL or localStorage (persistent)
+// Get UPI ID and amount
 let upiID = getQueryParam("upi") || localStorage.getItem("lastUpiID");
 let amount = getQueryParam("amount") || localStorage.getItem("lastAmount");
 
@@ -15,9 +14,9 @@ if (amount) {
     localStorage.setItem("lastAmount", amount);
 }
 
-// Display payment message
+// Show Payment Info
 let paymentText = document.getElementById("paymentText");
-paymentText.innerHTML = `Sending ${amount ? "₹" + amount : ""} to <strong>${upiID}</strong>`;
+paymentText.innerHTML = `Pay <strong>${amount ? "₹" + amount : ""}</strong> to <strong>${upiID}</strong>`;
 
 // Generate QR Code
 let upiURL = `upi://pay?pa=${upiID}&pn=UPI%20Payment${amount ? "&am=" + amount : ""}&cu=INR`;
@@ -27,7 +26,7 @@ new QRCode(document.getElementById("qrcode"), {
     height: 200
 });
 
-// Redirect to UPI apps on button click
+// Redirect to UPI apps when clicking "Pay Now"
 document.getElementById("payNow").addEventListener("click", function () {
     window.location.href = upiURL;
 });

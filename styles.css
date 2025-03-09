@@ -6,14 +6,9 @@ body {
     padding: 0;
 }
 
-/* Dark Mode */
-.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-
+/* Mobile-friendly container */
 .container {
-    max-width: 400px;
+    max-width: 90%;
     margin: 50px auto;
     padding: 20px;
     background: white;
@@ -21,12 +16,9 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.dark-mode .container {
-    background: #1e1e1e;
-}
-
+/* Input fields styling */
 input {
-    width: 90%;
+    width: 95%;
     padding: 12px;
     margin: 10px 0;
     border: 2px solid #ddd;
@@ -34,9 +26,10 @@ input {
     font-size: 16px;
 }
 
+/* Button Styling */
 button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     background: #007bff;
     color: white;
     border: none;
@@ -50,32 +43,24 @@ button:hover {
     background: #0056b3;
 }
 
-#qrcode {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+/* Hide elements initially */
+.hidden {
+    display: none;
 }
 
-.pay-now {
+/* Styling for the Copy Link button */
+#copyLink {
+    margin-top: 10px;
     background: #28a745;
-    margin-top: 20px;
 }
 
-.pay-now:hover {
+#copyLink:hover {
     background: #218838;
 }
 
+/* Footer */
 .footer {
     margin-top: 30px;
     font-size: 14px;
     color: #666;
-}
-
-.dark-mode .footer {
-    color: #bbb;
-}
-
-.icon {
-    font-size: 40px;
-    color: #007bff;
 }
