@@ -81,9 +81,27 @@ button:hover {
     color: #666;
 }
 
+#qrcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    max-width: 300px; /* Ensure it doesn't stretch too much */
+}
+
 /* Desktop friendly */
 @media (min-width: 768px) {
     .container {
         max-width: 600px;
+    }
+}
+
+@media (min-width: 768px) {
+    #qrcode {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
     }
 }
