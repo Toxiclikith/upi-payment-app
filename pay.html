@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay via UPI</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Scan to Pay</h2>
+
+        <p id="transactionMessage"></p> <!-- Dynamic Message -->
+        <div id="qrcode"></div>
+
+        <button id="payNow">Pay Now</button>
+    </div>
+
+    <p class="credit">Made with ❤️ by toxiclikith</p>
+
+    <script>
+        function getQueryParams() {
+            let params = new URLSearchParams(window.location.search);
+            return {
+                upi: params.get("upi"),
+                amount: params.get("amount") || "",
+                dark: params.get("dark")
+            };
+        }
+
+        window.onload = function () {
+            let { upi, amount, dark } = getQueryParams();
+            if (!upi) return alert("Invalid UPI Link!");
+
+            let upiLink = `upi://pay?pa=${upi}&pn=Payment&am=${amount}&cu=INR`;
+            new QRCode(document.getElementById("qrcode"), upiLink);
+
+            document.getElementById("transactionMessage").innerText = amount 
+                ? `Sending ₹${amount} to ${upi}`
+                : `Sending to ${upi}`;
+
+            document.getElementById("payNow").onclick = () => {
+                window.location.href = upiLink;
+            };
+
+            // Apply dark mode if enabled
+            if (dark === "1") {
+                document.body.classList.add("dark");
+            }
+        };
+    </script>
+</body>
+</html>
