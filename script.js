@@ -1,62 +1,43 @@
-// Handle Dark Mode
-document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById("darkModeToggle");
-    const darkMode = localStorage.getItem("darkMode");
+document.getElementById("generate").addEventListener("click", async function () {
+    let upi = document.getElementById("upi").value.trim();
+    let amount = document.getElementById("amount").value.trim();
 
-    if (darkMode === "enabled") {
-        document.body.classList.add("dark");
-        toggle.checked = true;
+    if (!upi) {
+        alert("Please enter a valid UPI ID!");
+        return;
     }
 
-    toggle.addEventListener("change", function () {
-        if (toggle.checked) {
-            document.body.classList.add("dark");
-            localStorage.setItem("darkMode", "enabled");
-        } else {
-            document.body.classList.remove("dark");
-            localStorage.setItem("darkMode", "disabled");
-        }
-    });
+    // Construct the payment page URL
+    let paymentURL = `https://toxiclikith.github.io/pay.html?upi=${encodeURIComponent(upi)}&amount=${amount}`;
+
+    try {
+        // Shorten URL using Bitly
+        let bitlyURL = await shortenURL(paymentURL);
+        
+        // Store in localStorage for persistence
+        localStorage.setItem("lastPaymentLink", bitlyURL);
+
+        // Display the shortened link
+        document.getElementById("generatedLink").innerHTML = `Your Payment Link: <a href="${bitlyURL}" target="_blank">${bitlyURL}</a>`;
+
+    } catch (error) {
+        alert("Failed to shorten URL, using normal link instead.");
+        document.getElementById("generatedLink").innerHTML = `Your Payment Link: <a href="${paymentURL}" target="_blank">${paymentURL}</a>`;
+    }
 });
 
-// Generate UPI Link
-async function generateLink() {
-    let upi = document.getElementById("upiId").value;
-    let amount = document.getElementById("amount").value;
-    if (!upi) return alert("Please enter a UPI ID.");
-
-    let darkMode = localStorage.getItem("darkMode") === "enabled" ? "1" : "0";
-
-    let link = `https://toxiclikith.github.io/upi-payment-app/pay.html?upi=${encodeURIComponent(upi)}&amount=${amount}&dark=${darkMode}`;
-
-    // Show message
-    document.getElementById("message").innerText = amount 
-        ? `Generating link for ₹${amount} to ${upi}`
-        : `Generating link for ${upi}`;
-
-    // Shorten URL using Bitly API
-    let shortLink = await shortenURL(link);
-    document.getElementById("generatedLink").innerHTML = `<a href="${shortLink}" target="_blank">${shortLink}</a>`;
-    document.getElementById("copyButton").style.display = "block";
-}
-
-// Shorten URL via Bitly
-async function shortenURL(longUrl) {
-    let BITLY_ACCESS_TOKEN = "YOUR_BITLY_ACCESS_TOKEN"; // Get from Bitly Developer Console
-    let response = await fetch("https://api-ssl.bitly.com/v4/shorten", {
+// Function to shorten URL using Bitly API
+async function shortenURL(longURL) {
+    const bitlyToken = "91e7c00d3623e3e4c1408448ed9b1f64f5d02763"; // Replace with your Bitly access token
+    const response = await fetch("https://api-ssl.bitly.com/v4/shorten", {
         method: "POST",
         headers: {
-            "Authorization": `Bearer ${BITLY_ACCESS_TOKEN}`,
+            "Authorization": `Bearer ${bitlyToken}`,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ long_url: longUrl })
+        body: JSON.stringify({ long_url: longURL })
     });
-    let data = await response.json();
-    return data.link;
-}
 
-// Copy Link
-function copyLink() {
-    navigator.clipboard.writeText(document.getElementById("generatedLink").innerText);
-    alert("Link copied!");
+    const data = await response.json();
+    return data.link; // Return shortened URL
 }

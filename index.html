@@ -4,31 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UPI Payment Link Generator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Generate UPI Payment Link</h2>
-        
-        <!-- Dark Mode Toggle -->
-        <label class="switch">
-            <input type="checkbox" id="darkModeToggle">
-            <span class="slider"></span>
-        </label> 
-        <span>Dark Mode</span>
 
-        <input type="text" id="upiId" placeholder="Enter UPI ID (e.g., yourupi@upi)">
-        <input type="number" id="amount" placeholder="Enter Amount (Optional)">
-        <button onclick="generateLink()">Generate</button>
-        
-        <p id="message"></p>
-        <p id="generatedLink"></p>
-        <button id="copyButton" onclick="copyLink()" style="display:none;">Copy Link</button>
-    </div>
+<div class="container">
+    <h2>Generate UPI Payment Link</h2>
+    <i class="icon">💰</i> 
 
-    <p class="credit">Made with ❤️ by toxiclikith</p>
+    <input type="text" id="upi" placeholder="Enter UPI ID (example@upi)">
+    <input type="number" id="amount" placeholder="Enter Amount (Optional)">
     
-    <script src="script.js"></script>
+    <button id="generate">Generate & Shorten Link</button>
+
+    <p id="generatedLink"></p>
+
+    <p class="footer">Made with ❤️ by <strong>toxiclikith</strong></p>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
