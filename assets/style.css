@@ -8,12 +8,18 @@ body {
 
 /* Mobile-friendly container */
 .container {
-    max-width: 90%;
+    max-width: 450px;
     margin: 50px auto;
     padding: 20px;
     background: white;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Rupee Icon */
+.rupee-logo {
+    width: 80px;
+    margin-bottom: 10px;
 }
 
 /* Input fields styling */
@@ -58,9 +64,26 @@ button:hover {
     background: #218838;
 }
 
+/* Payment logos */
+.logos {
+    margin-top: 20px;
+}
+
+.logos img {
+    width: 100px;
+    margin: 5px;
+}
+
 /* Footer */
 .footer {
     margin-top: 30px;
     font-size: 14px;
     color: #666;
+}
+
+/* Desktop friendly */
+@media (min-width: 768px) {
+    .container {
+        max-width: 600px;
+    }
 }
