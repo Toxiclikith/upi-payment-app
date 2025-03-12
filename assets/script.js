@@ -11,7 +11,7 @@ document.getElementById("generate").addEventListener("click", function () {
 
     amount = amount ? `&amount=${amount}` : '';
 
-    let paymentURL = `https://toxiclikith.github.io/upi-payment-app/pay.html?upi=${encodeURIComponent(upi)}&amount=${amount}`;
+    let paymentURL = `https://toxiclikith.github.io/upi-payment-app/pay.html?upi=${encodeURIComponent(upi)}${amount}`;
     localStorage.setItem("lastPaymentLink", paymentURL);
 
     generatedLinkElem.innerHTML = `<a href="${paymentURL}" target="_blank">${paymentURL}</a>`;
